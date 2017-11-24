@@ -64,7 +64,7 @@ public:
     typedef selfsimilar_int_distribution<_IntType> distribution_type;
 
     explicit param_type(_IntType __a = 0, _IntType __b = std::numeric_limits<_IntType>::max(), double __skew = 0.99)
-    : _M_a(__a), _M_b(__b), _M_skew(__theta)
+    : _M_a(__a), _M_b(__b), _M_skew(__skew)
     {
       assert(_M_a <= _M_b && _M_skew > 0.0 && _M_skew < 1.0);
     }
@@ -73,7 +73,7 @@ public:
 
     result_type	b() const { return _M_b; }
 
-    double skew() const { return _M_theta; }
+    double skew() const { return _M_skew; }
 
     friend bool	operator==(const param_type& __p1, const param_type& __p2)
     {
