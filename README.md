@@ -1,4 +1,4 @@
-# cpp_random_distributions
+# C++ Random Distributions
 
 This repository provides header-only classes with additional statistical distributions to be used by C++11 random generators.
 
