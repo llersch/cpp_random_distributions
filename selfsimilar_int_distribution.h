@@ -28,11 +28,12 @@
  */
 
 /*
- * The selfsimilar_int_distribution class is intended to be compatible with other
- * distributions defined in #include<random> by the C++11 standard.
+ * The selfsimilar_int_distribution class is intended to be compatible with
+ * other distributions introduced in #include <random> by the C++11 standard.
  * 
  * The distribution of probability is such that the first (N*skew) elements are
- * generated (1-skew) of the times.
+ * generated (1-skew) of the times. This distribution also has the property
+ * that the skew is the same within any region of the key space.
  * 
  * Usage example:
  * #include <random>
@@ -40,7 +41,7 @@
  * int main()
  * {
  *   std::default_random_engine generator;
- *   std::selfsimilar_int_distribution<int> distribution(1,10,0.2);
+ *   std::selfsimilar_int_distribution<int> distribution(1, 10, 0.2);
  *   int i = distribution(generator);
  * }
  */
@@ -53,7 +54,7 @@
 template<typename _IntType = int>
 class selfsimilar_int_distribution
 {
-  static_assert(std::is_integral<_IntType>::value, "template argument not an integral type");
+  static_assert(std::is_integral<_IntType>::value, "Template argument not an integral type.");
 
 public:
   /** The type of the range of the distribution. */
@@ -63,7 +64,7 @@ public:
   {
     typedef selfsimilar_int_distribution<_IntType> distribution_type;
 
-    explicit param_type(_IntType __a = 0, _IntType __b = std::numeric_limits<_IntType>::max(), double __skew = 0.99)
+    explicit param_type(_IntType __a = 0, _IntType __b = std::numeric_limits<_IntType>::max(), double __skew = 0.2)
     : _M_a(__a), _M_b(__b), _M_skew(__skew)
     {
       assert(_M_a <= _M_b && _M_skew > 0.0 && _M_skew < 1.0);
@@ -148,10 +149,9 @@ public:
   result_type operator()(_UniformRandomNumberGenerator& __urng, const param_type& __p)
   {
     double u = std::generate_canonical<double, std::numeric_limits<double>::digits, _UniformRandomNumberGenerator>(__urng);
-    return __p.a() + (
-                  (__p.b() - __p.a() + 1) *
-                  std::pow(u, std::log(__p.skew()) / std::log(1.0-__p.skew()))
-                    );
+    unsigned long N = __p.b() - __p.a() + 1;
+    return __p.a() + (N *
+                std::pow(u, std::log(__p.skew()) / std::log(1.0-__p.skew())));
   }
 
   /**
