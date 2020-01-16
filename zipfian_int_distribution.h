@@ -127,8 +127,8 @@ public:
     double zeta(unsigned long __n, double __theta)
     {
       double ans = 0.0;
-      for(unsigned long i=1; i<=n; ++i)
-        ans += std::pow(1.0/i, theta);
+      for(unsigned long i=1; i<=__n; ++i)
+        ans += std::pow(1.0/i, __theta);
       return ans;
     }
   };
