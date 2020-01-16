@@ -37,7 +37,7 @@
  * int main()
  * {
  *   std::default_random_engine generator;
- *   std::zipfian_int_distribution<int> distribution(1,10,0.99);
+ *   zipfian_int_distribution<int> distribution(1,10,0.99);
  *   int i = distribution(generator);
  * }
  */
@@ -54,8 +54,8 @@
  * int main()
  * {
  *   std::default_random_engine generator;
- *   std::zipfian_int_distribution<int>::param_type p(1,1e6, 0.99, 27.000);
- *   std::zipfian_int_distribution<int> distribution(p);
+ *   zipfian_int_distribution<int>::param_type p(1,1e6, 0.99, 27.000);
+ *   zipfian_int_distribution<int> distribution(p);
  *   int i = distribution(generator);
  * }
  */
