@@ -33,7 +33,7 @@
  * 
  * The distribution of probability is such that the first (N*skew) elements are
  * generated (1-skew) of the times. This distribution also has the property
- * that the skew is the same within any region of the key space.
+ * that the skew is the same within any region of the domain.
  * 
  * Usage example:
  * #include <random>

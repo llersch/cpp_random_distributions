@@ -29,7 +29,7 @@
 
 /*
  * The zipfian_int_distribution class is intended to be compatible with other
- * distributions defined in #include<random> by the C++11 standard.
+ * distributions introduced in #include <random> by the C++11 standard.
  * 
  * Usage example:
  * #include <random>
@@ -37,7 +37,7 @@
  * int main()
  * {
  *   std::default_random_engine generator;
- *   zipfian_int_distribution<int> distribution(1,10,0.99);
+ *   zipfian_int_distribution<int> distribution(1, 10, 0.99);
  *   int i = distribution(generator);
  * }
  */
@@ -46,7 +46,7 @@
  * IMPORTANT: constructing the distribution object requires calculating the zeta
  * value which becomes prohibetively expensive for very large ranges. As an
  * alternative for such cases, the user can pass the pre-calculated values and
- * avoid the calculation.
+ * avoid the calculation every time.
  * 
  * Usage example:
  * #include <random>
@@ -54,15 +54,11 @@
  * int main()
  * {
  *   std::default_random_engine generator;
- *   zipfian_int_distribution<int>::param_type p(1,1e6, 0.99, 27.000);
+ *   zipfian_int_distribution<int>::param_type p(1, 1e6, 0.99, 27.000);
  *   zipfian_int_distribution<int> distribution(p);
  *   int i = distribution(generator);
  * }
  */
- 
- 0.99
- max_uint32_t --> 25.4095
- max_uint64_t -->
 
 #include <cmath>
 #include <limits>
@@ -72,7 +68,7 @@
 template<typename _IntType = int>
 class zipfian_int_distribution
 {
-  static_assert(std::is_integral<_IntType>::value, "template argument not an integral type");
+  static_assert(std::is_integral<_IntType>::value, "Template argument not an integral type.");
 
 public:
   /** The type of the range of the distribution. */
@@ -122,10 +118,16 @@ public:
     double _M_zeta;
     double _M_zeta2theta;
 
-    double zeta(double n, double theta)
+    /**
+     * @brief Calculates zeta.
+     *
+     * @param __n [IN]  The size of the domain.
+     * @param __theta [IN]  The skew factor of the distribution.
+     */
+    double zeta(unsigned long __n, double __theta)
     {
       double ans = 0.0;
-      for(int i=1; i<=n; ++i)
+      for(unsigned long i=1; i<=n; ++i)
         ans += std::pow(1.0/i, theta);
       return ans;
     }
