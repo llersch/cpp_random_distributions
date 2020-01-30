@@ -6,9 +6,10 @@ Example:
 ```c++
 #include <random>
 #include "selfsimilar_int_distribution.h"
+
 int main() {
     std::default_random_engine generator;
-    std::selfsimilar_int_distribution<int> distribution(1, 10, 0.2);
+    selfsimilar_int_distribution<int> distribution(1, 10, 0.2);
     int i = distribution(generator);
 }
 ```
