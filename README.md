@@ -2,6 +2,17 @@
 
 This repository provides header-only classes with additional statistical distributions to be used by C++11 random generators.
 
+Example:
+```c++
+#include <random>
+#include "selfsimilar_int_distribution.h"
+int main() {
+    std::default_random_engine generator;
+    std::selfsimilar_int_distribution<int> distribution(1, 10, 0.2);
+    int i = distribution(generator);
+}
+```
+
 Most formulas are taken from: ["Quickly Generating Billion-Record Synthetic Databases", Jim Gray et al, SIGMOD 1994".](https://dl.acm.org/doi/10.1145/191843.191886)
 
 ## Self-Similar
@@ -21,11 +32,11 @@ In the plots below we generate random integers in the range `[1,25]` (X axis) an
 ## Zipfian
 The Zipfian distribution is a power law distribution.
 It has a parameter `h` indicating the skew factor (higher means more skew).
-Since the Zipfian distribution is base on the zeta distribution, it requires calculating the zeta value upon initialization.
-Calculating the zeta value can be unpractical for very large domains, therefore the user has the option passing a pre-calculated zeta value to the distribution.
+Since the Zipfian distribution is based on the zeta distribution, it requires calculating the zeta value upon initialization.
+Calculating the zeta value can be unpractical for very large domains, therefore the user has the option of passing a pre-calculated zeta value to the distribution.
 
 In the plots below we generate random integers in the range `[1,25]` (X axis) and plot the percentage of times they were generated (Y axis) with different skew factors.
-Note that the Zipfian distribution is less skewed than the self-similar one, as the percentages on the Y axis are smaller.
+Note that the Zipfian distribution is less skewed than the self-similar one, as the percentages on the Y axis are lower.
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/7251387/72624553-7795f900-3947-11ea-8cf2-d53d00cf5196.png">
